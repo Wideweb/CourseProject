@@ -10,5 +10,11 @@ namespace CourseProject
     {
         public Neuron Neuron;
         public double Weight;
+
+        public Link(Neuron neuron)
+        {
+            Neuron = neuron;
+            Weight = 0;
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace CourseProject
         public Neuron(int LinksCount)
         {
             IncomingLinks = new Link[LinksCount];
+            Power = 0;
         }
     }
 }

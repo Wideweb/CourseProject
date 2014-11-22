@@ -11,11 +11,13 @@ namespace CourseProject
         private readonly Input[] _inputs;
         private readonly Neuron[] _neurons;
         private readonly int _alphabetLen;
+        private readonly int _pixelsNumber;
 
         public KohonenNetwork()
         {
             _alphabetLen = 26;
-            _inputs = new Input[_alphabetLen];
+            _pixelsNumber = 45 * 45;
+            _inputs = new Input[_pixelsNumber];
             _neurons = new Neuron[_alphabetLen];
             FieldInputs();
             FieldNeurons();
@@ -25,23 +27,23 @@ namespace CourseProject
 
         private void FieldInputs()
         {
-            for (var i = 0; i < _alphabetLen; i++)
+            for (var i = 0; i < _pixelsNumber; i++)
                 _inputs[i] = new Input(_alphabetLen);
         }
 
         private void FieldNeurons()
         {
             for (var i = 0; i < _alphabetLen; i++)
-                _neurons[i] = new Neuron(_alphabetLen);
+                _neurons[i] = new Neuron(_pixelsNumber);
         }
 
         private void CreateNetwork()
         {
-            for (var j = 0; j < _alphabetLen; j++)
+            for (var j = 0; j < _pixelsNumber; j++)
             {
-                var link = new Link();
                 for (var i = 0; i < _alphabetLen; i++)
                 {
+                    var link = new Link(_neurons[i]);
                     _inputs[j].OutgoingLinks[i] = link;
                     _neurons[i].IncomingLinks[j] = link;
                 }
@@ -89,7 +91,7 @@ namespace CourseProject
             for (var i = 0; i < neuron.IncomingLinks.Length; i++)
             {
                 var incomingLink = neuron.IncomingLinks[i];
-                incomingLink.Weight = 0.5 * (input[i] + incomingLink.Weight);
+                incomingLink.Weight = incomingLink.Weight + 0.5 * (input[i] - incomingLink.Weight);
             }
         }
 
