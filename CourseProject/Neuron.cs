@@ -10,5 +10,10 @@ namespace CourseProject
     {
         public Link[] IncomingLinks;
         public double Power { get; set; }
+
+        public Neuron(int LinksCount)
+        {
+            IncomingLinks = new Link[LinksCount];
+        }
     }
 }

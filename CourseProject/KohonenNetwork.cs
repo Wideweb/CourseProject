@@ -10,6 +10,43 @@ namespace CourseProject
     {
         private readonly Input[] _inputs;
         private readonly Neuron[] _neurons;
+        private readonly int _alphabetLen;
+
+        public KohonenNetwork()
+        {
+            _alphabetLen = 26;
+            _inputs = new Input[_alphabetLen];
+            _neurons = new Neuron[_alphabetLen];
+            FieldInputs();
+            FieldNeurons();
+            CreateNetwork();
+            SetZeroExcitations();
+        }
+
+        private void FieldInputs()
+        {
+            for (var i = 0; i < _alphabetLen; i++)
+                _inputs[i] = new Input(_alphabetLen);
+        }
+
+        private void FieldNeurons()
+        {
+            for (var i = 0; i < _alphabetLen; i++)
+                _neurons[i] = new Neuron(_alphabetLen);
+        }
+
+        private void CreateNetwork()
+        {
+            for (var j = 0; j < _alphabetLen; j++)
+            {
+                var link = new Link();
+                for (var i = 0; i < _alphabetLen; i++)
+                {
+                    _inputs[j].OutgoingLinks[i] = link;
+                    _neurons[i].IncomingLinks[j] = link;
+                }
+            }
+        }
 
         public int Parse(int[] input)
         {
@@ -22,7 +59,7 @@ namespace CourseProject
                 }
             }
             var maxIndex = FindNeuronWithMaxExcitation();
-            RemoveExcitation();
+            SetZeroExcitations();
 
             return maxIndex;
         }
@@ -38,7 +75,7 @@ namespace CourseProject
             return maxIndex;
         }
 
-        private void RemoveExcitation()
+        private void SetZeroExcitations()
         {
             foreach (var outputNeuron in _neurons)
             {

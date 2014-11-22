@@ -9,5 +9,10 @@ namespace CourseProject
     class Input
     {
         public Link[] OutgoingLinks;
+
+        public Input(int LinksCount)
+        {
+            OutgoingLinks = new Link[LinksCount];
+        }
     }
 }
