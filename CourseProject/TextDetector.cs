@@ -18,7 +18,9 @@ namespace CourseProject
 
         public List<Symbol> Symbols { get { return _symbols; } }
 
-        public TextDetector(Bitmap image)
+        public TextDetector() { }
+
+        public void Detect(Bitmap image)
         {
             _image = image;
             _symbols = new List<Symbol>();
@@ -26,7 +28,14 @@ namespace CourseProject
             FindSymbols();
         }
 
+        public List<int[]> GetVectors()
+        {
+            List<int[]> vectors = new List<int[]>();
+            foreach (var symbol in _symbols)
+                vectors.Add(symbol.GetVector());
 
+            return vectors;
+        }
 
         private void FindSymbols()
         {
@@ -37,6 +46,7 @@ namespace CourseProject
                     {
                         newSymbol  = new Symbol();
                         AbsorbSymbol(j, i, newSymbol);
+                        if (!newSymbol.isEmpty)
                         _symbols.Add(newSymbol);
                     }
             CutSymblos();

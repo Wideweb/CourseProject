@@ -13,78 +13,30 @@ namespace CourseProject
     {
         static void Main(string[] args)
         {
-            KohonenNetwork kn = new KohonenNetwork();
-            Bitmap bmp;
-            int[] vector;
-            char symbol;
-
-            for (var i = 0; i < 26; i++)
-            {
-                symbol = (char)('A' + i);
-                bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\Arial\" + symbol + ".bmp"));
-                vector = GetVector(bmp);
-                kn.Study(vector, i);
-            }
-            
-            for (var i = 0; i < 26; i++)
-            {
-                symbol = (char)('A' + i);
-                bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\TimesNewRoman\" + symbol + ".bmp"));
-                vector = GetVector(bmp);
-                kn.Study(vector, i);
-            }
-            
-            for (var i = 0; i < 26; i++)
-            {
-                symbol = (char)('A' + i);
-                bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\Adobe Ming Std L\" + symbol + ".bmp"));
-                vector = GetVector(bmp);
-                kn.Study(vector, i);
-            }
-            
-            for (var i = 0; i < 26; i++)
+            /*for (var i = 0; i < 26; i++)
             {
                 symbol = (char)('A' + i);
                 bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\Arial\" + symbol + ".bmp"));
                 vector = GetVector(bmp);
                 Console.WriteLine(symbol + " - " + (char)('A' + kn.Parse(vector)));
-            }
+            }*/
 
             /*for (var i = 0; i < 26; i++)
             {
                 symbol = (char)('A' + i);
                 CreateBitmapImage(symbol.ToString());
             }*/
-            var img = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\text.bmp"));
-            var textDetector = new TextDetector(img);
-            int a = 123;
-            foreach(var _symbol in textDetector.Symbols)
-            {
-                _symbol.Pattern.Save(@"C:\Users\Alexander\Desktop\text\" + a++ + ".bmp");
-            }
-            
+
+            var bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\lol.bmp"));
+
+            var kn = new KohonenNetwork();
+            var td = new TextDetector();
+            var recognizer = new Recognizer(kn, td);
+            var Message = recognizer.Parse(bmp);
+
+            Console.WriteLine(Message);
+
             Console.ReadKey();
-        }
-
-        static int[] GetVector(Bitmap image)
-        {
-            var vector = new int[45 * 45];
-            for (var i = 0; i < 45; i++)
-                for (var j = 0; j < 45; j++)
-                    if (isBlack(image.GetPixel(j, i)))
-                        vector[i * 45 + j] = 1;
-                    else
-                        vector[i * 45 + j] = 0;
-            
-            return vector;
-        }
-
-        static bool isBlack(Color color)
-        {
-            if (color.R == 0 && color.G == 0 && color.B == 0)
-                return true;
-            else
-                return false;
         }
 
         static Bitmap CreateBitmapImage(string imageText)

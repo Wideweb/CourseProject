@@ -50,7 +50,7 @@ namespace CourseProject
             }
         }
 
-        public int Parse(int[] input)
+        public int  Parse(int[] input)
         {
             for (var i = 0; i < _inputs.Length; i++)
             {
