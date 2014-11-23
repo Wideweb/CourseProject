@@ -11,21 +11,17 @@ namespace CourseProject
     {
         private int _x;
         private int _y;
-        private int _top = 0;
+        private int _top = int.MaxValue;
         private int _buttom = 0;
-        private int _left = 0;
+        private int _left = int.MaxValue;
         private int _right = 0;
-        private Canvas _canvas;
 
-        public int CenterX { get; set; }
-        public int CenterY { get; set; }
+        public int CenterX { get { return _x; } }
+        public int CenterY { get { return _y; } }
 
         public Bitmap Pattern { get; set; }
 
-        public Symbol(int Width, int Height)
-        {
-            _canvas = new Canvas(Width, Height);
-        }
+        public Symbol(){}
 
         private Bitmap LeadToThePattern(Bitmap image)
         {
@@ -35,17 +31,18 @@ namespace CourseProject
 
         public void CutSymbol(Bitmap image)
         {
-            RectangleF cloneRect = new RectangleF(_top, _left, _right - _left + 2, _buttom - _top + 2);
+            Console.WriteLine("left - " + _left + "top - " + _top);
+            RectangleF cloneRect = new RectangleF(_left, _top, _right - _left + 2, _buttom - _top + 2);
             System.Drawing.Imaging.PixelFormat format =
                 image.PixelFormat;
             Bitmap cloneBitmap = image.Clone(cloneRect, format);
 
             Pattern = LeadToThePattern(cloneBitmap);
+            //Pattern = cloneBitmap;
         }
 
         public void AddBlackPoint(int x, int y)
         {
-            _canvas.DrawBlackPoint(x, y);
             if (y > _buttom)
                 _buttom = y;
             if (y < _top)
@@ -58,8 +55,8 @@ namespace CourseProject
 
         private void CountCenter()
         {
-            CenterX = (_left + _right) / 2;
-            CenterY = (_top + _buttom) / 2;
+            _x = (_left + _right) / 2;
+            _y = (_top + _buttom) / 2;
         }
     }
 }

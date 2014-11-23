@@ -55,6 +55,13 @@ namespace CourseProject
                 symbol = (char)('A' + i);
                 CreateBitmapImage(symbol.ToString());
             }*/
+            var img = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\text.bmp"));
+            var textDetector = new TextDetector(img);
+            int a = 123;
+            foreach(var _symbol in textDetector.Symbols)
+            {
+                _symbol.Pattern.Save(@"C:\Users\Alexander\Desktop\text\" + a++ + ".bmp");
+            }
             
             Console.ReadKey();
         }
