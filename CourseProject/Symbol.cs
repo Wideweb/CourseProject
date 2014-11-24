@@ -19,6 +19,12 @@ namespace CourseProject
 
         public int CenterX { get { return _x; } }
         public int CenterY { get { return _y; } }
+        public int Width { get { return _right - _left; } }
+        public int Height { get { return _buttom - _top; } }
+        public int Top { get { return _top; } }
+        public int Buttom { get { return _buttom; } }
+        public int Left { get { return _left; } }
+        public int Rigt { get { return _right; } }
 
         public Bitmap Pattern { get; set; }
 

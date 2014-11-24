@@ -32,10 +32,46 @@ namespace CourseProject
         public List<int[]> GetVectors()
         {
             List<int[]> vectors = new List<int[]>();
-            foreach (var symbol in _symbols)
-                vectors.Add(symbol.GetVector());
+            for (int i = 0; i < _symbols.Count; i++)
+                vectors.Add(_symbols[i].GetVector());
+
+            FindSpaces(vectors);
 
             return vectors;
+        }
+
+        public void FindSpaces(List<int[]> vectors)
+        {
+            var spaceVector = Mat.GetSpaceVector();
+            var enterVector = Mat.GetEnterVector();
+
+            var spaces = new List<int>();
+            var avWidth = 0;
+            var deltaY = 0;
+            var deltaX = 0;
+            var deltaI = 0;
+
+            for (int i = 1; i < _symbols.Count; i++ )
+            {
+                deltaY = (_symbols[i - 1].Buttom - _symbols[i].Top);
+                if (deltaY < 0)
+                {
+                    vectors.Insert(i + deltaI, enterVector);
+                    deltaI++;
+                }
+            }
+            /*
+            for (int i = 1; i < _symbols.Count; i++)
+            {
+                deltaY = (_symbols[i - 1].Buttom - _symbols[i].Top);
+                avWidth = (_symbols[i - 1].Width + _symbols[i].Width) / 2;
+                deltaX = (_symbols[i].Left - _symbols[i - 1].Rigt);
+                if (deltaX > avWidth / 3 && deltaY > 0)
+                {
+                    vectors.Insert(vectors.IndexOf(_symbols[i].GetVector()), spaceVector);
+                    deltaI++;
+                }
+            }*/
         }
 
         private void SortSymbols()

@@ -13,7 +13,7 @@ namespace CourseProject
     {
         static void Main(string[] args)
         {
-            var bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\hey.bmp"));
+            var bmp = new Bitmap(Bitmap.FromFile(@"C:\Users\Alexander\Desktop\bel.bmp"));
 
             var kn = new KohonenNetwork();
             var td = new TextDetector();

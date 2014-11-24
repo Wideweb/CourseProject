@@ -39,6 +39,66 @@ namespace CourseProject
             return vector;
         }
 
+        static public int[] GetEmptyVector()
+        {
+            var vector = new int[45 * 45];
+            for (var i = 0; i < 45; i++)
+                for (var j = 0; j < 45; j++)
+                        vector[i * 45 + j] = 0;
+
+            return vector;
+        }
+
+        static public int[] GetFullVector()
+        {
+            var vector = new int[45 * 45];
+            for (var i = 0; i < 45; i++)
+                for (var j = 0; j < 45; j++)
+                    vector[i * 45 + j] = 1;
+
+            return vector;
+        }
+
+        static public int[] GetEnterVector()
+        {
+            return new int[1];
+        }
+
+        static public int[] GetSpaceVector()
+        {
+            return new int[2];
+        }
+
+        static public bool isEmptyVector(int[] vector)
+        {
+            var Empty = true;
+            var i = 0;
+            while (i < 45 * 45 && Empty)
+                Empty = vector[i] == 0;
+
+            return Empty;
+        }
+
+        static public bool isFullVector(int[] vector)
+        {
+            var Empty = true;
+            var i = 0;
+            while (i < 45 * 45 && Empty)
+                Empty = vector[i] == 1;
+
+            return Empty;
+        }
+
+        static public bool isSpaceVector(int[] vector)
+        {
+            return vector.Length == 2;
+        }
+
+        static public bool isEnterVector(int[] vector)
+        {
+            return vector.Length == 1;
+        }
+
         static public bool isBlack(Color color)
         {
             if (color.R == 0 && color.G == 0 && color.B == 0)
