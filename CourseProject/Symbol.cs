@@ -32,7 +32,7 @@ namespace CourseProject
         private Bitmap LeadToThePattern2(Bitmap image)
         {
             if (image.Height < 5 && image.Width < 5)
-                return new Bitmap(image, 45, 45);
+                return new Bitmap(45, 45);
 
             Bitmap tmpFile = new Bitmap(image, new Size(45, 45));
             return tmpFile;
@@ -42,25 +42,22 @@ namespace CourseProject
         {
             if (image.Height < 5 && image.Width < 5)
                 return new Bitmap(45, 45);
+            
             int newWidth = 45;
             int newHeight = 45;
 
             if (image.Height > image.Width)
-            {
-                newWidth = image.Width / (image.Height / 45);
-                newHeight = 45;
-            }
-            else
-            {
-                newHeight = image.Height / (image.Width / 45);
-                newWidth = 45;
-            }
-            Bitmap lal = new Bitmap(image, new Size(newWidth, newHeight));
+                newWidth = (int)(image.Width / ((float)image.Height / 45));
+            
+            if (image.Height < image.Width)
+                newHeight = (int)(image.Height / ((float)image.Width / 45));
+
+            Bitmap newImage = new Bitmap(image, new Size(newWidth, newHeight));
 
             Bitmap tmpFile = new Bitmap(45, 45);
             Graphics gr = Graphics.FromImage(tmpFile);
-            gr.DrawImage(lal, new Point((45 - newWidth) / 2, 0));
-            //Bitmap tmpFile = new Bitmap(image, new Size(newWidth, newHeight));
+            gr.DrawImage(newImage, new Point((45 - newWidth) / 2, 0));
+
             return tmpFile;
         }
 
@@ -71,7 +68,7 @@ namespace CourseProject
                 image.PixelFormat;
             Bitmap cloneBitmap = image.Clone(cloneRect, format);
 
-            Pattern = LeadToThePattern2(cloneBitmap);
+            Pattern = LeadToThePattern(cloneBitmap);
         }
 
         public void AddBlackPoint(int x, int y)
@@ -85,6 +82,7 @@ namespace CourseProject
             if (x > _right)
                 _right = x;
             isEmpty = false;
+            CountCenter();
         }
 
         private void CountCenter()

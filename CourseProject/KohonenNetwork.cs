@@ -13,6 +13,8 @@ namespace CourseProject
         private readonly int _alphabetLen;
         private readonly int _pixelsNumber;
 
+        public int _fonts = 0;
+
         public KohonenNetwork()
         {
             _alphabetLen = 26;
@@ -91,7 +93,8 @@ namespace CourseProject
             for (var i = 0; i < neuron.IncomingLinks.Length; i++)
             {
                 var incomingLink = neuron.IncomingLinks[i];
-                incomingLink.Weight = incomingLink.Weight + 0.5 * (input[i] - incomingLink.Weight);
+                //Умножить на кностатну (вряд ли поможет);
+                incomingLink.Weight = incomingLink.Weight + 1 / Math.Pow(2, _fonts) * (input[i] - incomingLink.Weight);
             }
         }
 

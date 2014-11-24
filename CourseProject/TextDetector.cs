@@ -26,6 +26,7 @@ namespace CourseProject
             _symbols = new List<Symbol>();
             _matrix = Mat.GetMatrix(_image);
             FindSymbols();
+            SortSymbols();
         }
 
         public List<int[]> GetVectors()
@@ -35,6 +36,19 @@ namespace CourseProject
                 vectors.Add(symbol.GetVector());
 
             return vectors;
+        }
+
+        private void SortSymbols()
+        {
+            _symbols.Sort(delegate(Symbol x, Symbol y)
+            {
+                if (x.CenterY - y.CenterY > 10) return 1;
+                if (x.CenterY - y.CenterY < -10) return -1;
+                if (x.CenterX >= y.CenterX) return 1;
+                if (x.CenterX < y.CenterX) return -1;
+                return 0;
+            }
+            );
         }
 
         private void FindSymbols()
